@@ -22,7 +22,14 @@ namespace _Template
 
         private static string[] GetLines()
         {
-            return System.IO.File.ReadAllLines(System.IO.Path.GetFullPath(@"..\..\..\") + @"\input.txt");
+            return System.IO.File.ReadAllLines("input.txt");
+            /*
+            remember to add the command
+            
+               copy "$(ProjectDir)\input.txt" "$(TargetDir)\input.txt"
+
+            to post build events in project properties
+            */
         }
     }
 }

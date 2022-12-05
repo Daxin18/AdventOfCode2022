@@ -14,9 +14,7 @@ namespace Day01
 
         static void SolvePuzzle1()
         {
-            //have to go one level higher because it somehow is a .NET console app and everything goes into \bin\Debug\net5.0
-            //I may have chosen wrong project file
-            string[] lines = System.IO.File.ReadAllLines(System.IO.Path.GetFullPath(@"..\..\..\") + @"\input.txt");
+            string[] lines = System.IO.File.ReadAllLines("input.txt");
             int maxCaloriesCount = 0;
             int tmp = 0;
             int x;
@@ -42,7 +40,7 @@ namespace Day01
         {
             int ElvesToFind = 3;
 
-            string[] lines = System.IO.File.ReadAllLines(System.IO.Path.GetFullPath(@"..\..\..\") + @"\input.txt");
+            string[] lines = System.IO.File.ReadAllLines("input.txt");
             List<int> elves = CaloriesOfElves(lines);
 
             elves = GetNHighest(ElvesToFind, elves);

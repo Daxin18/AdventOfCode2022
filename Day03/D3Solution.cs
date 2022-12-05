@@ -119,7 +119,7 @@ namespace Day03
 
         private static string[] GetLines()
         {
-            return System.IO.File.ReadAllLines(System.IO.Path.GetFullPath(@"..\..\..\") + @"\input.txt");
+            return System.IO.File.ReadAllLines("input.txt");
         }
     }
 }
