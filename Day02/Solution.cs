@@ -7,7 +7,7 @@ namespace Day02
         static void Main(string[] args)
         {
             SolvePuzzle1();
-            //SolvePuzzle2();
+            SolvePuzzle2();
         }
 
         static void SolvePuzzle1()
@@ -83,11 +83,63 @@ namespace Day02
             }
             return result;
         }
-
+        
+        //I knew how to solve the second puzzle right away, but still got sad I'm not gonna get to use "determineWinner" here :(
         static void SolvePuzzle2()
         {
+            string[] lines = GetLines();
+            string[] stratGuide;
+            int points = 0;
 
+            foreach (string line in lines)
+            {
+                stratGuide = line.Split(' ');
+
+                points += determinePoints(stratGuide[0], stratGuide[1]);
+            }
+
+            Console.WriteLine(points);
         }
+
+        private static int determinePoints(string playerOne, string strat)
+        {
+            int result = 1;
+            switch (playerOne, strat)
+            {
+                case ("A", "X"):
+                    result = 0 + 3;
+                    break;
+                case ("A", "Y"):
+                    result = 3 + 1;
+                    break;
+                case ("A", "Z"):
+                    result = 6 + 2;
+                    break;
+                case ("B", "X"):
+                    result = 0 + 1;
+                    break;
+                case ("B", "Y"):
+                    result = 3 + 2;
+                    break;
+                case ("B", "Z"):
+                    result = 6 + 3;
+                    break;
+                case ("C", "X"):
+                    result = 0 + 2;
+                    break;
+                case ("C", "Y"):
+                    result = 3 + 3;
+                    break;
+                case ("C", "Z"):
+                    result = 6 + 1;
+                    break;
+                default:
+                    result = -1;
+                    break;
+            }
+            return result;
+        }
+
 
         private static string[] GetLines()
         {
