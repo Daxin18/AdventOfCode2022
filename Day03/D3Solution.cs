@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Day03
 {
-    class Solution
+    class d3Solution
     {
         static void Main(string[] args)
         {

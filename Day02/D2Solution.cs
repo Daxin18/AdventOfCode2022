@@ -2,7 +2,7 @@
 
 namespace Day02
 {
-    class Solution
+    class D2Solution
     {
         static void Main(string[] args)
         {

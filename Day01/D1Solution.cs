@@ -4,7 +4,7 @@ using System.IO;
 
 namespace Day01
 {
-    class Solution
+    class D1Solution
     {
         static void Main(string[] args)
         {
