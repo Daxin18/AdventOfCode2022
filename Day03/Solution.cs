@@ -46,10 +46,58 @@ namespace Day03
             return result;
         }
 
-        
+        //starting to feel like it's a common theme to not be able to use the majority of your previous methods in the second puzzle
         static void SolvePuzzle2()
         {
+            string[] lines = GetLines();
+            List<string> group = new List<string>();
+            int groupSize = 3;
+            int sum = 0;
 
+            foreach (string line in lines)
+            {
+                group.Add(line);
+
+                if (group.Count == groupSize)
+                {
+                    sum += GetItemPriority(FindCommonItemInGroupOfSizeN(group));
+                    group = new List<string>();
+                }
+            }
+
+            Console.WriteLine(sum);
+        }
+
+        static char FindCommonItemInGroupOfSizeN(List<string> group) //N - size of a list
+        {
+            char result = new char();
+
+            Dictionary<char, int> seenItems = new Dictionary<char, int>();
+            List<char> itemsInRucksack = new List<char>();
+
+            foreach (string rucksack in group)
+            {
+                itemsInRucksack = new List<char>();
+
+                foreach (char item in rucksack)
+                {
+                    if (!itemsInRucksack.Contains(item))
+                    {
+                        itemsInRucksack.Add(item);
+                        if (seenItems.ContainsKey(item))
+                        {
+                            seenItems[item]++;
+                            if (seenItems[item] == group.Count)
+                                result = item;
+                        }
+                        else
+                        {
+                            seenItems.Add(item, 1);
+                        }
+                    }
+                }
+            }
+            return result;
         }
 
 
