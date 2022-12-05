@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Day04
 {
@@ -13,12 +14,46 @@ namespace Day04
         static void SolvePuzzle1()
         {
             string[] lines = GetLines();
+            string[] ranges; //stores both ranges from the current pair (aka the one in foreach)
+            char[] separators = ",-".ToCharArray();
+            int sum = 0;
+
+            foreach (string line in lines)
+            {
+                ranges = line.Split(separators);
+
+                if ((Int32.Parse(ranges[0]) >= Int32.Parse(ranges[2]) && Int32.Parse(ranges[1]) <= Int32.Parse(ranges[3]))
+                    || (Int32.Parse(ranges[0]) <= Int32.Parse(ranges[2]) && Int32.Parse(ranges[1]) >= Int32.Parse(ranges[3])))
+                {
+                    sum++;
+                }
+            }
+
+            Console.WriteLine(sum);
         }
 
         static void SolvePuzzle2()
         {
             string[] lines = GetLines();
+            string[] ranges; //stores both ranges from the current pair (aka the one in foreach)
+            char[] separators = ",-".ToCharArray();
+            int sum = 0;
+
+            foreach (string line in lines)
+            {
+                ranges = line.Split(separators);
+
+                if ((Int32.Parse(ranges[0]) <= Int32.Parse(ranges[3]) && (Int32.Parse(ranges[1]) >= Int32.Parse(ranges[3])))
+                    || (Int32.Parse(ranges[2]) <= Int32.Parse(ranges[1]) && (Int32.Parse(ranges[3]) >= Int32.Parse(ranges[1]))))
+                {
+                    sum++;
+                }
+            }
+
+            Console.WriteLine(sum);
         }
+
+
 
         private static string[] GetLines()
         {
@@ -26,3 +61,4 @@ namespace Day04
         }
     }
 }
+

@@ -20,7 +20,7 @@ namespace _Template
             string[] lines = GetLines();
         }
 
-            private static string[] GetLines()
+        private static string[] GetLines()
         {
             return System.IO.File.ReadAllLines(System.IO.Path.GetFullPath(@"..\..\..\") + @"\input.txt");
         }
