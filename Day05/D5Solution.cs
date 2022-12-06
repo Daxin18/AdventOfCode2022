@@ -25,7 +25,7 @@ namespace Day05
                 string line = lines[i];
                 string[] moveFromTo = line.Split(delimiter, StringSplitOptions.RemoveEmptyEntries);
 
-                MoveFromTo(ref stacks, Int32.Parse(moveFromTo[0]), Int32.Parse(moveFromTo[1]), Int32.Parse(moveFromTo[2]));
+                MoveFromTo9000(ref stacks, Int32.Parse(moveFromTo[0]), Int32.Parse(moveFromTo[1]), Int32.Parse(moveFromTo[2]));
             }
 
             foreach (Stack<char> stack in stacks)
@@ -39,6 +39,26 @@ namespace Day05
         static void SolvePuzzle2()
         {
             string[] lines = GetLines();
+            int stackCount = 0;
+            int maxStackHeight = 0;
+            List<Stack<char>> stacks = BuildStacks(lines, ref stackCount, ref maxStackHeight);
+
+
+            string[] delimiter = { "move ", " from ", " to " };
+            for (int i = maxStackHeight + 2; i < lines.Length; i++)
+            {
+                string line = lines[i];
+                string[] moveFromTo = line.Split(delimiter, StringSplitOptions.RemoveEmptyEntries);
+
+                MoveFromTo9001(ref stacks, Int32.Parse(moveFromTo[0]), Int32.Parse(moveFromTo[1]), Int32.Parse(moveFromTo[2]));
+            }
+
+            foreach (Stack<char> stack in stacks)
+            {
+                Console.Write(stack.Pop());
+            }
+
+            Console.WriteLine();
         }
 
         //is this an overkill? Yeah, it probably is...
@@ -98,7 +118,7 @@ namespace Day05
             return result;
         }
 
-        private static void MoveFromTo(ref List<Stack<char>> stacks, int move, int from, int to)
+        private static void MoveFromTo9000(ref List<Stack<char>> stacks, int move, int from, int to)
         {
             //numbers of stacks are 1 higher than their indexes
             from--;
@@ -108,6 +128,25 @@ namespace Day05
             {
                 stacks[to].Push(stacks[from].Pop());
                 move--;
+            }
+        }
+
+        private static void MoveFromTo9001(ref List<Stack<char>> stacks, int move, int from, int to)
+        {
+            //numbers of stacks are 1 higher than their indexes
+            from--;
+            to--;
+
+            Stack<char> tmp = new Stack<char>();
+
+            while (move > 0)
+            {
+                tmp.Push(stacks[from].Pop());
+                move--;
+            }
+            while(tmp.Count > 0)
+            {
+                stacks[to].Push(tmp.Pop());
             }
         }
 
