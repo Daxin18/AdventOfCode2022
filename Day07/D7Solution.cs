@@ -59,6 +59,19 @@ namespace Day07
         static void SolvePuzzle2()
         {
             string[] lines = GetLines();
+            Filesystem fs = new Filesystem();
+            ulong answer = 0;
+            ulong spaceToBeFreed;
+
+            InitiateFilesystem(ref fs, lines);
+
+            spaceToBeFreed = 30000000 - (fs.capacity - fs.getUsedSpace());
+
+            Console.WriteLine(spaceToBeFreed);
+
+            answer = fs.findSmallestDirectoryOfMinimalSize(spaceToBeFreed);
+
+            Console.WriteLine(answer);
         }
 
         private static string[] GetLines()
