@@ -26,6 +26,69 @@ namespace Day08
         static void SolvePuzzle2()
         {
             string[] lines = GetLines();
+
+            int[,] grid = SetupGrid(lines);
+
+            int maxScenicScore = 0;
+
+            //it's like using brute-force to solve it, but I'm low on time
+            for (int i = 0; i < grid.GetLength(0); i++)
+            {
+                for (int j = 0; j < grid.GetLength(1); j++)
+                {
+                    int tree = grid[i, j];
+
+                    int[] viewingDistance = new int[4];
+
+                    if (!(i == 0 || j == 0 || i == grid.GetLength(0) - 1 || j == grid.GetLength(1) - 1))
+                    {
+                        //bottom
+                        for (int n = 1; n < grid.GetLength(0) - i; n++)
+                        {
+                            viewingDistance[0]++;
+                            if (grid[i + n, j] >= tree)
+                            {
+                                break;
+                            }
+                        }
+                        //top
+                        for (int n = 1; n <= i; n++)
+                        {
+                            viewingDistance[1]++;
+                            if (grid[i - n, j] >= tree)
+                            {
+                                break;
+                            }
+                        }
+                        //right
+                        for (int n = 1; n < grid.GetLength(1) - j; n++)
+                        {
+                            viewingDistance[2]++;
+                            if (grid[i, j + n] >= tree)
+                            {
+                                break;
+                            }
+                        }
+                        //right
+                        for (int n = 1; n <= j; n++)
+                        {
+                            viewingDistance[3]++;
+                            if (grid[i, j - n] >= tree)
+                            {
+                                break;
+                            }
+                        }
+                    }
+                    int scenicScore = viewingDistance[0] * viewingDistance[1] * viewingDistance[2] * viewingDistance[3];
+
+                    if (scenicScore > maxScenicScore)
+                    {
+                        maxScenicScore = scenicScore;
+                    }
+                }
+            }
+
+            Console.WriteLine(maxScenicScore);
         }
 
         private static int CountVisibleTrees(int[,] grid, int[,] visibilityRequirements)
