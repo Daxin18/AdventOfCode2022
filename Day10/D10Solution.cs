@@ -45,6 +45,49 @@ namespace Day10
         static void SolvePuzzle2()
         {
             string[] lines = GetLines();
+
+            int cycle = 0;
+            int register = 1;
+            char[,] CRT = new char[6, 40];
+
+            foreach (string line in lines)
+            {
+                string[] split = line.Split(' ');
+
+                cycle++;
+
+                DrawPixel(cycle-1, register, ref CRT);
+
+                if (split[0].Equals("addx"))
+                {
+                    cycle++;
+
+                    DrawPixel(cycle-1, register, ref CRT);
+
+                    register += Int32.Parse(split[1]);
+                }
+            }
+
+            for(int i = 0; i < CRT.GetLength(0); i++)
+            {
+                for(int j = 0; j < CRT.GetLength(1); j++)
+                {
+                    Console.Write(CRT[i, j]);
+                }
+                Console.WriteLine();
+            }
+        }
+
+        private static void DrawPixel(int cycle, int register, ref char[,] CRT)
+        {
+            if(Math.Abs(register-(cycle % 40)) <= 1)
+            {
+                CRT[cycle / 40, cycle % 40] = '#';
+            }
+            else
+            {
+                CRT[cycle / 40, cycle % 40] = '.';
+            }
         }
 
         private static string[] GetLines()
