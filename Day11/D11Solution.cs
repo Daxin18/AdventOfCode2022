@@ -15,7 +15,7 @@ namespace Day11
         {
             string[] lines = GetLines();
             List<Monkey> monkeys = new List<Monkey>();
-            List<int> itemsInspected = new List<int>();
+            List<nuint> itemsInspected = new List<nuint>();
             int roundCount = 20;
 
             SetupMonkeys(lines, ref monkeys, true);
@@ -31,11 +31,11 @@ namespace Day11
                 for(int j = 0; j < monkeys.Count; j++)
                 {
                     Monkey monkey = monkeys[j];
-                    itemsInspected[j] += monkey.items.Count;
+                    itemsInspected[j] += (nuint)monkey.items.Count;
                     int itemNumber = monkey.items.Count;
                     for (int k = 0; k < itemNumber; k++)
                     {
-                        (int, int) throwTo = monkey.InspectAndThrowItem();
+                        (nuint, int) throwTo = monkey.InspectAndThrowItem();
                         monkeys[throwTo.Item2].AddItem(throwTo.Item1);
                     }
                 }
@@ -43,7 +43,12 @@ namespace Day11
 
             itemsInspected.Sort();
 
-            long result = itemsInspected[itemsInspected.Count - 1] * itemsInspected[itemsInspected.Count - 2];
+            nuint result = itemsInspected[itemsInspected.Count - 1] * itemsInspected[itemsInspected.Count - 2];
+
+            foreach (nuint item in itemsInspected)
+            {
+                Console.WriteLine(item);
+            }
 
             Console.WriteLine(result);
         }
@@ -52,7 +57,7 @@ namespace Day11
         {
             string[] lines = GetLines();
             List<Monkey> monkeys = new List<Monkey>();
-            List<long> itemsInspected = new List<long>();
+            List<nuint> itemsInspected = new List<nuint>();
             int roundCount = 10000;
 
             SetupMonkeys(lines, ref monkeys, false);
@@ -68,11 +73,11 @@ namespace Day11
                 for (int j = 0; j < monkeys.Count; j++)
                 {
                     Monkey monkey = monkeys[j];
-                    itemsInspected[j] += monkey.items.Count;
+                    itemsInspected[j] += (nuint)monkey.items.Count;
                     int itemNumber = monkey.items.Count;
                     for (int k = 0; k < itemNumber; k++)
                     {
-                        (int, int) throwTo = monkey.InspectAndThrowItem();
+                        (nuint, int) throwTo = monkey.InspectAndThrowItem();
                         monkeys[throwTo.Item2].AddItem(throwTo.Item1);
                     }
                 }
@@ -80,7 +85,12 @@ namespace Day11
 
             itemsInspected.Sort();
 
-            long result = itemsInspected[itemsInspected.Count - 1] * itemsInspected[itemsInspected.Count - 2];
+            nuint result = itemsInspected[itemsInspected.Count - 1] * itemsInspected[itemsInspected.Count - 2];
+
+            foreach(nuint item in itemsInspected)
+            {
+                Console.WriteLine(item);
+            }
 
             Console.WriteLine(result);
         }
@@ -92,10 +102,10 @@ namespace Day11
                 int fullMonkey = 1; //first line is just monkey number (which we automatically get via list index placement
                 i++; //we omit the line with monkey number
                 string[] split;
-                List<int> monkeyItems = new List<int>();
-                Func<int, int, int> monkeyOperation = Addition;
-                int? monkeyOperationNumber = 0;
-                int monkeyTest = 0;
+                List<nuint> monkeyItems = new List<nuint>();
+                Func<nuint, nuint, nuint> monkeyOperation = Addition;
+                nuint? monkeyOperationNumber = 0;
+                nuint monkeyTest = 0;
                 int monkeyTrue = 0;
                 int monkeyFalse = 0;
                 while (fullMonkey < 6) //monkey information consists of 6 lines
@@ -104,10 +114,10 @@ namespace Day11
                     {
                         case 1: //monkey items
                             split = lines[i].Split(' ', ',');
-                            int tmp;
+                            nuint tmp;
                             foreach (string s in split)
                             {
-                                if (Int32.TryParse(s, out tmp))
+                                if (nuint.TryParse(s, out tmp))
                                 {
                                     monkeyItems.Add(tmp);
                                 }
@@ -122,7 +132,7 @@ namespace Day11
                                     monkeyOperation = Multiplication;
                                     if (!split[j + 1].Equals("old"))
                                     {
-                                        monkeyOperationNumber = Int32.Parse(split[++j]);
+                                        monkeyOperationNumber = nuint.Parse(split[++j]);
                                     }
                                     else
                                     {
@@ -135,7 +145,7 @@ namespace Day11
                                     monkeyOperation = Addition;
                                     if (!split[j + 1].Equals("old"))
                                     {
-                                        monkeyOperationNumber = Int32.Parse(split[++j]);
+                                        monkeyOperationNumber = nuint.Parse(split[++j]);
                                     }
                                     else
                                     {
@@ -147,7 +157,7 @@ namespace Day11
                             break;
                         case 3: //monkey test
                             split = lines[i].Split(' ');
-                            monkeyTest = Int32.Parse(split[split.Length - 1]);
+                            monkeyTest = nuint.Parse(split[split.Length - 1]);
                             break;
                         case 4: //monkey test is true
                             split = lines[i].Split(' ');
@@ -166,13 +176,12 @@ namespace Day11
             }
         }
 
-        private static int Multiplication(int old, int number) => old * number;
-        private static int Addition(int old, int number) => old + number;
+        private static nuint Multiplication(nuint old, nuint number) => old * number;
+        private static nuint Addition(nuint old, nuint number) => old + number;
 
         private static string[] GetLines()
         {
-            return System.IO.File.ReadAllLines("input.txt");
-
+            return System.IO.File.ReadAllLines("test.txt");
         }
     }
 }

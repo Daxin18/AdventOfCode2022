@@ -6,15 +6,15 @@ namespace Day11
 {
     class Monkey
     {
-        public List<int> items;
-        public Func<int, int, int> operation;
-        private int? operationNumber;
-        public int testNumber;
+        public List<nuint> items;
+        public Func<nuint, nuint, nuint> operation;
+        private nuint? operationNumber;
+        public nuint testNumber;
         public int throwToIfTrue;
         public int throwToIfFalse;
         public bool divideByThree;
 
-        public Monkey(List<int> items, Func<int, int, int> operation, int? operationNumber, int testNumber, int throwToIfTrue, int throwToIfFalse, bool divideByThree)
+        public Monkey(List<nuint> items, Func<nuint, nuint, nuint> operation, nuint? operationNumber, nuint testNumber, int throwToIfTrue, int throwToIfFalse, bool divideByThree)
         {
             this.items = items;
             this.operation = operation;
@@ -25,10 +25,10 @@ namespace Day11
             this.divideByThree = divideByThree;
         }
 
-        public (int, int) InspectAndThrowItem()
+        public (nuint, int) InspectAndThrowItem()
         {
-            (int, int) result = (0,0);
-            int item = items[items.Count - 1]; //just to make it a bit faster to later renumber items when removing
+            (nuint, int) result = (0,0);
+            nuint item = items[items.Count - 1]; //just to make it a bit faster to later renumber items when removing
 
             if(operationNumber is null)
             {
@@ -36,7 +36,7 @@ namespace Day11
             }
             else
             {
-                item = operation(item, (int)operationNumber); //worry level increased
+                item = operation(item, (nuint)operationNumber); //worry level increased
             }
 
             if(divideByThree)
@@ -44,7 +44,7 @@ namespace Day11
                 item = item / 3; //monkey gets bored
             }
 
-            if (item % testNumber == 0)
+            if ((item % testNumber).Equals(UIntPtr.Zero))
             {
                 result = (item, throwToIfTrue);
             }
@@ -58,7 +58,7 @@ namespace Day11
             return result;
         }
 
-        public void AddItem(int item)
+        public void AddItem(nuint item)
         {
             items.Add(item);
         }

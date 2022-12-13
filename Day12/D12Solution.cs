@@ -23,13 +23,6 @@ namespace Day12
         private static string[] GetLines()
         {
             return System.IO.File.ReadAllLines("input.txt");
-            /*
-            remember to add the command
-            
-               copy "$(ProjectDir)\input.txt" "$(TargetDir)\input.txt"
-
-            to post build events in project properties
-            */
         }
     }
 }
