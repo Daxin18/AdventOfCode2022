@@ -30,13 +30,16 @@ namespace Day11
             (nuint, int) result = (0,0);
             nuint item = items[items.Count - 1]; //just to make it a bit faster to later renumber items when removing
 
-            if(operationNumber is null)
+            checked
             {
-                item = operation(item, item); //worry level increased
-            }
-            else
-            {
-                item = operation(item, (nuint)operationNumber); //worry level increased
+                if (operationNumber is null)
+                {
+                    item = operation(item, item); //worry level increased
+                }
+                else
+                {
+                    item = operation(item, (nuint)operationNumber); //worry level increased
+                }
             }
 
             if(divideByThree)

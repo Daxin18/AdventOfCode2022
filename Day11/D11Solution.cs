@@ -20,15 +20,15 @@ namespace Day11
 
             SetupMonkeys(lines, ref monkeys, true);
 
-            foreach(Monkey monkey in monkeys)
+            foreach (Monkey monkey in monkeys)
             {
                 itemsInspected.Add(0);
                 //Console.WriteLine(monkey.ToString());
             }
 
-            for(int i = 0; i < roundCount; i++)
+            for (int i = 0; i < roundCount; i++)
             {
-                for(int j = 0; j < monkeys.Count; j++)
+                for (int j = 0; j < monkeys.Count; j++)
                 {
                     Monkey monkey = monkeys[j];
                     itemsInspected[j] += (nuint)monkey.items.Count;
@@ -87,7 +87,7 @@ namespace Day11
 
             nuint result = itemsInspected[itemsInspected.Count - 1] * itemsInspected[itemsInspected.Count - 2];
 
-            foreach(nuint item in itemsInspected)
+            foreach (nuint item in itemsInspected)
             {
                 Console.WriteLine(item);
             }
@@ -178,7 +178,6 @@ namespace Day11
 
         private static nuint Multiplication(nuint old, nuint number) => old * number;
         private static nuint Addition(nuint old, nuint number) => old + number;
-
         private static string[] GetLines()
         {
             return System.IO.File.ReadAllLines("test.txt");
