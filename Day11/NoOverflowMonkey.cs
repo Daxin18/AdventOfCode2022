@@ -12,7 +12,7 @@ namespace Day11
         {
             public int number;
             public HashSet<int> primes;
-            private static readonly int[] PRIME_LIST = { 2, 3, 5, 7, 11, 13, 17, 19};
+            private static readonly int[] PRIME_LIST = {2, 3, 5, 7, 11, 13, 17, 19};
 
             public Item(int number)
             {
@@ -64,9 +64,8 @@ namespace Day11
         public int testNumber;
         public int throwToIfTrue;
         public int throwToIfFalse;
-        public bool divideByThree;
 
-        public NoOverflowMonkey(List<int> items, Func<nuint, nuint, nuint> operation, int? operationNumber, int testNumber, int throwToIfTrue, int throwToIfFalse, bool divideByThree)
+        public NoOverflowMonkey(List<int> items, Func<nuint, nuint, nuint> operation, int? operationNumber, int testNumber, int throwToIfTrue, int throwToIfFalse)
         {
             List<Item> itemsList = new List<Item>();
 
@@ -81,12 +80,11 @@ namespace Day11
             this.testNumber = testNumber;
             this.throwToIfTrue = throwToIfTrue;
             this.throwToIfFalse = throwToIfFalse;
-            this.divideByThree = divideByThree;
         }
 
         public (Item, int) InspectAndThrowItem()
         {
-            (Item, int) result = (0, 0);
+            (Item, int) result = (items[0], 0);
             Item item = items[items.Count - 1]; //just to make it a bit faster to later renumber items when removing
             int number = item.number;
 
@@ -100,11 +98,6 @@ namespace Day11
                 {
                     number = (int)operation((nuint)number, (nuint)operationNumber); //worry level increased
                 }
-            }
-
-            if (divideByThree)
-            {
-                number = number / 3; //monkey gets bored
             }
 
             item.number = number;

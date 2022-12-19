@@ -60,7 +60,7 @@ namespace Day11
             List<nuint> itemsInspected = new List<nuint>();
             int roundCount = 10000;
 
-            SetupNoOverflowMonkeys(lines, ref monkeys, false);
+            SetupNoOverflowMonkeys(lines, ref monkeys);
 
             foreach (NoOverflowMonkey monkey in monkeys)
             {
@@ -72,12 +72,12 @@ namespace Day11
             {
                 for (int j = 0; j < monkeys.Count; j++)
                 {
-                    Monkey monkey = monkeys[j];
+                    NoOverflowMonkey monkey = monkeys[j];
                     itemsInspected[j] += (nuint)monkey.items.Count;
                     int itemNumber = monkey.items.Count;
                     for (int k = 0; k < itemNumber; k++)
                     {
-                        (nuint, int) throwTo = monkey.InspectAndThrowItem();
+                        (NoOverflowMonkey.Item, int) throwTo = monkey.InspectAndThrowItem();
                         monkeys[throwTo.Item2].AddItem(throwTo.Item1);
                     }
                 }
@@ -95,7 +95,7 @@ namespace Day11
             Console.WriteLine(result);
         }
 
-        private static void SetupNoOverflowMonkeys(string[] lines, ref List<NoOverflowMonkey> monkeys, bool divideByThree)
+        private static void SetupNoOverflowMonkeys(string[] lines, ref List<NoOverflowMonkey> monkeys)
         {
             for (int i = 0; i < lines.Length; i++)
             {
@@ -172,7 +172,7 @@ namespace Day11
                     i++; //we go to the next line
                 }
 
-                monkeys.Add(new NoOverflowMonkey(monkeyItems, monkeyOperation, (int?)monkeyOperationNumber, (int)monkeyTest, monkeyTrue, monkeyFalse, divideByThree));
+                monkeys.Add(new NoOverflowMonkey(monkeyItems, monkeyOperation, (int?)monkeyOperationNumber, (int)monkeyTest, monkeyTrue, monkeyFalse));
             }
         }
 
