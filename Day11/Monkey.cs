@@ -13,6 +13,7 @@ namespace Day11
         public int throwToIfTrue;
         public int throwToIfFalse;
         public bool divideByThree;
+        private nuint commonDivider;
 
         public Monkey(List<nuint> items, Func<nuint, nuint, nuint> operation, nuint? operationNumber, nuint testNumber, int throwToIfTrue, int throwToIfFalse, bool divideByThree)
         {
@@ -23,12 +24,18 @@ namespace Day11
             this.throwToIfTrue = throwToIfTrue;
             this.throwToIfFalse = throwToIfFalse;
             this.divideByThree = divideByThree;
+            this.commonDivider = 2 * 3 * 5 * 7 * 11 * 13 * 17 * 19;
         }
 
         public (nuint, int) InspectAndThrowItem()
         {
             (nuint, int) result = (0,0);
             nuint item = items[items.Count - 1]; //just to make it a bit faster to later renumber items when removing
+
+            if (item >= commonDivider)
+            {
+                item = item % commonDivider;
+            }
 
             checked
             {
@@ -47,7 +54,7 @@ namespace Day11
                 item = item / 3; //monkey gets bored
             }
 
-            if ((item % testNumber).Equals(UIntPtr.Zero))
+            if ((item % testNumber).Equals(0))
             {
                 result = (item, throwToIfTrue);
             }
